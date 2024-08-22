@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {annotations} from "./annotations";
 import Player from 'video.js/dist/types/player';
 
-export const VideoAnnotations = (props: {src: string, onMount: Function}) => {
+export const VideoAnnotations = (props: {src: string, onMount: Function, addVideo: Function}) => {
     let filteredAnnotations: any[] = [];
     console.log("rendering annotations");
     const [currentTime, setCurrentTime] = useState(0);
@@ -24,6 +24,7 @@ export const VideoAnnotations = (props: {src: string, onMount: Function}) => {
             {filteredAnnotations.map((annotation: any, index: number) => (
                 <button key={annotation.label} onClick={() => {
                     player && player.pause();
+                    props.addVideo(annotation.video);
                 }}>
                     {annotation.label}
                 </button>

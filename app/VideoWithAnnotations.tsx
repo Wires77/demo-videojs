@@ -4,7 +4,7 @@ import React from "react";
 import videojs from "video.js";
 import { VideoAnnotations } from "./VideoAnnotations";
 
-export const VideoWithAnnotations = (src: string) => {
+export const VideoWithAnnotations = (props: {src: string, addVideo: Function}) => {
   const playerRef = React.useRef(null);
   let myPlayer = null;
   let currentTime = 0, setCurrentTime = null, setPlayer: ((arg0: any) => void) | null = null;
@@ -16,7 +16,7 @@ export const VideoWithAnnotations = (src: string) => {
     responsive: true,
     fluid: true,
     sources: [{
-      src: src,
+      src: props.src,
       type: 'video/mp4'
     }]
   };
@@ -47,7 +47,7 @@ export const VideoWithAnnotations = (src: string) => {
   return (
     <>
       <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
-      <VideoAnnotations onMount={onChildMount} src={videoJsOptions.sources[0].src} />
+      <VideoAnnotations addVideo={props.addVideo} onMount={onChildMount} src={videoJsOptions.sources[0].src} />
     </>
   );
 }
